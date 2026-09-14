@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    name: Test on iOS Simulator
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -scheme FlexLayout \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
+      - name: Build example app
+        run: |
+          xcodebuild build \
+            -project Example/FlexLayoutExample.xcodeproj \
+            -scheme FlexLayoutExample \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO
