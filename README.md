@@ -2,21 +2,13 @@
 
 `FlexLayout` is a flexible layout tool similar to SwiftUI syntax， `ConstraintLayout` is the syntactic sugar of  `NSLayoutAnchor`.
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ![demo](./demo.jpeg)
 
 
 ```swift
 
 FL.V(frame: view.bounds) {
-    if #available(iOS 11.0, *) {
-        FL.Space.fixed(self.view.safeAreaInsets.top)
-    } else {
-        FL.Space.fixed(20)
-    }
+    FL.Space.fixed(self.view.safeAreaInsets.top)
     FL.Bind(userInfoContent) { rect in
         FL.H(size: rect.size) {
             FL.Space.fixed(20)
@@ -39,11 +31,7 @@ FL.V(frame: view.bounds) {
     }.with(main: .fixed(100), cross: .stretch(margin: (start: 20, end: 20)))
     FL.Space.grow()
     self.bottomBar.with(main: .fixed(60), cross: .stretch(margin: (start: 20, end: 20)))
-    if #available(iOS 11.0, *) {
-        FL.Space.fixed(self.view.safeAreaInsets.bottom)
-    } else {
-        FL.Space.fixed(20)
-    }
+    FL.Space.fixed(self.view.safeAreaInsets.bottom)
 }
 
 CL.layout(clTest) {
@@ -63,16 +51,41 @@ CL.layout(clTest2) {
 
 ## Requirements
 
-Swift, iOS 9.0+
-
+- Swift 5.9+
+- iOS 13.0+
 
 ## Installation
 
-FlexLayout is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+FlexLayout is managed with [Swift Package Manager](https://www.swift.org/package-manager/).
 
-```ruby
-pod 'TKFlexLayout', :git=>'https://github.com/tbxark/FlexLayout.git'
+### Xcode
+
+`File` > `Add Package Dependencies...` > enter `https://github.com/tbxark/FlexLayout.git` and add the `FlexLayout` library to your target.
+
+### Package.swift
+
+Versioned releases require a published git tag (`2.0.0` and later):
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/tbxark/FlexLayout.git", from: "2.0.0")
+]
+```
+
+Or track the `master` branch directly:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/tbxark/FlexLayout.git", branch: "master")
+]
+```
+
+## Development
+
+The Example app lives in `Example/FlexLayoutExample.xcodeproj` and depends on the local Swift package. Run the tests with:
+
+```sh
+xcodebuild test -scheme FlexLayout -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
 
 ## Author
